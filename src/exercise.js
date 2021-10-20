@@ -1,9 +1,9 @@
-import { createStore } from 'redux'; 
+import { createStore } from "redux";
 
-// 초기 상태 정의
+// 리덕스 초기 상태
 const initialState = {
   counter: 0,
-  test: '',
+  text: '',
   list: []
 };
 
@@ -13,18 +13,19 @@ const DECREASE = "DECREASE";
 const CHANGE_TEXT = "CHANGE_TEXT";
 const ADD_TO_LIST = "ADD_TO_LIST";
 
-
 // 액션 생성함수 정의
-const increase = () => ({
-  type: INCREASE
-})
+function increase() {
+  return {
+    type: INCREASE
+  };
+}
 
 const decrease = () => ({
   type: DECREASE
 })
 
 const changeText = text => ({
-  type: ADD_TO_LIST,
+  type: CHANGE_TEXT,
   text
 })
 
@@ -50,33 +51,34 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         text: action.text
-      }
+      };
     case ADD_TO_LIST:
-      return {
-        ...state,
-        list: state.list.concat(action.item)
-      }
+    return {
+      ...state,
+      list: state.list.concat(action.item)
+    };
     default:
-      return state;
+    return state;
   }
 }
 
-/* 스토어 만들기 */
+// 스토어 만들기
 const store = createStore(reducer);
 
-console.log(store.getState()); // 현재 store 안에 들어있는 상태를 조회합니다.
+// 현재 score 안에 들어 있는 상태 조회
+console.log(store.getState());
 
-// 스토어안에 들어있는 상태가 바뀔 때 마다 호출되는 listener 함수
+// 스토어안에 들어있는 상태가 바뀔 때 호출되는 listener 함수
 const listener = () => {
   const state = store.getState();
   console.log(state);
-};
+}
 
+// 구독을 해지하는 함수
 const unsubscribe = store.subscribe(listener);
-// 구독을 해제하고 싶을 때는 unsubscribe() 를 호출하면 됩니다.
 
-// 액션들을 디스패치 해봅시다.
+// 액션들을 디스패치
 store.dispatch(increase());
 store.dispatch(decrease());
-store.dispatch(changeText('안녕하세요'));
-store.dispatch(addToList({ id: 1, text: '와우' }));
+store.dispatch(changeText("안녕!"));
+store.dispatch(addToList({id:1, text:"와우!"}))
