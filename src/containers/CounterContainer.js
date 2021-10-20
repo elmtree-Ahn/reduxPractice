@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import Counter from "../components/Counter";
-import {increase, decrease, setDiff} from '../modules/counter'
+import {increase, decrease, setDiff} from '../modules/counter';
+
 
 function CounterContatine() {
   // store에서 state값 가져오기
